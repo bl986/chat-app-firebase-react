@@ -1,0 +1,25 @@
+rules_version = '2';
+service cloud.firestore {
+  match databases{database}documents {
+    match {document=} {
+      allow read, write if false;
+    }
+    
+    match messages{docId} {
+  		this checks that the user must be logged in (i.e. uid is not null)
+    	allow read if request.auth.uid !=null;
+      allow create if canCreateMessage(); check if the user is banned (can create message)
+    }
+    
+    function canCreateMessage() {
+    	let isSignedIn = request.auth.uid !=null;
+      let isOwner = request.auth.uid == request.resource.data.uid;
+      
+      let isNotBanned = exists(
+      	databases$(database)documentsbanned$(request.auth.uid)
+      ) == false;
+      
+      return isSignedIn && isOwner && isNotBanned;
+    }
+  }
+}

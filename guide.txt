@@ -1,0 +1,40 @@
+download the code package from github, open the folder in vscode,
+go to firebase and create your own configuration, put in the initializeApp section
+run npm install
+run npm run start
+
+
+
+1. terminal: npx create-react-app superchat
+
+terminal: code superchat
+to open in vscode and edit
+
+2. terminal: npm install firebase react-firebase-hooks
+to install these 2 independencies
+
+
+3. terminal: npm install -g firebase-tools
+
+
+terminal: npm run start
+to start the react app as a local host
+
+
+
+
+
+
+
+
+If anyone has errors saying "firebase is not defined", or "Attempted import error: 'firebase/app' does not contain a default export (imported as 'firebase') Error" it probably means that you are using Version 9 and that things changed a bit for importing firebase. Now there is a “compatibility” option so can use the /compat folder in your imports.
+
+So instead of :
+<< import firebase from 'firebase/app'; 
+     import 'firebase/firestore';
+     import 'firebase/auth';         >>
+
+use:
+<< import firebase from 'firebase/compat/app'; 
+     import 'firebase/compat/firestore';
+     import 'firebase/compat/auth';         >>
